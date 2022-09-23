@@ -1,7 +1,5 @@
 [toc]
 
-
-
 ## 这是什么？
 
 这是一个 vue@3.x 的自定义指令。 它用于让元素进行 **简单的动画**。
@@ -18,25 +16,20 @@ vSimani : v-simple-animate
    //main.ts
    import { createApp } from 'vue';
    import App from './App.vue';
-   
-   
+
    import { vSimani } from 'vsimani';
    const app = createApp(App);
    app.use(vSimani);
    app.mount('#app');
    ```
 
-   
-
 2. 使用
 
-````vue
+```vue
 <div v-animate.moveup>
 Hello vSimani
 </div>
-````
-
-
+```
 
 ### 预定义动画
 
@@ -72,7 +65,7 @@ Hello vSimani
 
 ```ts
 interface DirectiveBindingValue {
-  duration?: number; 
+  duration?: number;
   timingFunction?: string;
   delay?: number;
   direction?: string;
@@ -83,9 +76,7 @@ interface DirectiveBindingValue {
 
 `value: DirectiveBindingValue`
 
-duration 默认值为之 0.3 , fillMode 默认值为之 both 其他没有默认值
-
-
+duration 默认值为之 0.3 , fillMode 默认值为之 both, timingFunction 默认值为 linear。 其他没有默认值
 
 ### 怎么让动画逆向运行？
 
@@ -103,11 +94,9 @@ duration 默认值为之 0.3 , fillMode 默认值为之 both 其他没有默认�
 </div>
 ```
 
-
-
 ### 定义你自己的修饰符
 
-在实际项目使用中，你可能需要定义自己的修饰符， 本插件暴露了一个注册方法，请依照以下步骤进行。 
+在实际项目使用中，你可能需要定义自己的修饰符， 本插件暴露了一个注册方法，请依照以下步骤进行。
 
 1. 定义好你的 关键帧动画：
 
@@ -117,30 +106,29 @@ duration 默认值为之 0.3 , fillMode 默认值为之 both 其他没有默认�
      from {
        transform: rotate(0);
      }
-   
+
      to {
        transform: rotate(360deg);
      }
    }
    ```
 
-2. 在 main.ts 中去引入你的样式文件， 并通过 vsimani 暴露的 `registerAnimation` 注册方法， 通过一个对象注册你的 指令修饰符和帧动画名的对应关系。 
+2. 在 main.ts 中去引入你的样式文件， 并通过 vsimani 暴露的 `registerAnimation` 注册方法， 通过一个对象注册你的 指令修饰符和帧动画名的对应关系。
 
    ```ts
    //main.ts
    import { createApp } from 'vue';
    import App from './App.vue';
-   
+
    // 引入 注册方法
-   import { vSimani,registerAnimation } from 'vsimani';
+   import { vSimani, registerAnimation } from 'vsimani';
    // 引入你的动画样式
    import './path/to/custom.css';
-   
+
    // 注册你的自定义动画
    // key(修饰符) ， value(自定义动画类名)
-   registerAnimation({rotate: 'v-animate-rotate'});
-   
-   
+   registerAnimation({ rotate: 'v-animate-rotate' });
+
    const app = createApp(App);
    app.use(vSimani);
    app.mount('#app');
@@ -150,27 +138,19 @@ duration 默认值为之 0.3 , fillMode 默认值为之 both 其他没有默认�
 
    ```vue
    <div
-        v-animate.rotate="{
-                          iterationCount: 'infinite',
-                          timingFunction: 'linear',
-                          duration: 2,
-                          }"
-        >
+     v-animate.rotate="{
+       iterationCount: 'infinite',
+       timingFunction: 'linear',
+       duration: 2,
+     }"
+   >
        Rotate Me
    </div>
    ```
 
-   
-
-   
-
-
-
-
-
 ## 注意点: :warning:
 
->  最终样式状态: 关键帧动画执行到 100% 时的样式状态
+> 最终样式状态: 关键帧动画执行到 100% 时的样式状态
 
 如果你没有指定你的动画为 `iterationCount:'infinite'` , 那么你在应用 `v-animate` 的时候需要注意一个 **最终状态样式的问题**
 
@@ -239,12 +219,6 @@ duration 默认值为之 0.3 , fillMode 默认值为之 both 其他没有默认�
 
 > `backdrop-blur-sm` (tailwindcss), 即 `backdrop-filter: blur(4px)`
 
-
-
-
-
-
-
 ## **额外的：怎么构建你自己的动画指令？**
 
 如果你希望自己构建一套完整的动画指令， 直接修改源代码即可。
@@ -268,4 +242,3 @@ const animationNameList = {
 animate/style.css
 
 添加你的关键帧动画， 注意命名需要和上面的保持一致：
-
