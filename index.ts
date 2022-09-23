@@ -12,6 +12,8 @@ interface DirectiveBindingValue {
   fillMode?: string;
 }
 
+let userCusAnimationList = {};
+
 const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   el: HTMLElement,
   binding: DirectiveBinding<DirectiveBindingValue>,
@@ -34,6 +36,7 @@ const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
     moveupshort: 'v-animate-moveup-short',
     movefromleft: 'v-animate-movefromleft',
     movefromleftshort: 'v-animate-movefromleft-short',
+    ...userCusAnimationList,
   };
   const generateAnimation = () => {
     Object.keys(modifiers).forEach((key) => {
@@ -49,4 +52,8 @@ export default {
   install: (app: App) => {
     app.directive('animate', vAnimate);
   },
+};
+
+export const registerAnimation = (data: { [x: string]: string }) => {
+  userCusAnimationList = data;
 };

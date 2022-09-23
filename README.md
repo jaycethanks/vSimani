@@ -6,13 +6,28 @@
 
 这是一个 vue@3.x 的自定义指令。 它用于让元素进行 **简单的动画**。
 
-
+![131522](README.assets/131522.gif)
 
 vSimani : v-simple-animate
 
 ## 使用指南
 
 1. 安装和引入
+
+   ```ts
+   //main.ts
+   import { createApp } from 'vue';
+   import App from './App.vue';
+   
+   
+   import { vSimani } from 'vsimani';
+   const app = createApp(App);
+   app.use(vSimani);
+   app.mount('#app');
+   ```
+
+   
+
 2. 使用
 
 ````vue
@@ -94,7 +109,60 @@ duration 默认值为之 0.3 , fillMode 默认值为之 both 其他没有默认�
 
 在实际项目使用中，你可能需要定义自己的修饰符， 本插件暴露了一个注册方法，请依照以下步骤进行。 
 
+1. 定义好你的 关键帧动画：
 
+   ```css
+   /* custome.css */
+   @keyframes v-animate-rotate {
+     from {
+       transform: rotate(0);
+     }
+   
+     to {
+       transform: rotate(360deg);
+     }
+   }
+   ```
+
+2. 在 main.ts 中去引入你的样式文件， 并通过 vsimani 暴露的 `registerAnimation` 注册方法， 通过一个对象注册你的 指令修饰符和帧动画名的对应关系。 
+
+   ```ts
+   //main.ts
+   import { createApp } from 'vue';
+   import App from './App.vue';
+   
+   // 引入 注册方法
+   import { vSimani,registerAnimation } from 'vsimani';
+   // 引入你的动画样式
+   import './path/to/custom.css';
+   
+   // 注册你的自定义动画
+   // key(修饰符) ， value(自定义动画类名)
+   registerAnimation({rotate: 'v-animate-rotate'});
+   
+   
+   const app = createApp(App);
+   app.use(vSimani);
+   app.mount('#app');
+   ```
+
+   像预定义修饰符一样使用的你自定义动画
+
+   ```vue
+   <div
+        v-animate.rotate="{
+                          iterationCount: 'infinite',
+                          timingFunction: 'linear',
+                          duration: 2,
+                          }"
+        >
+       Rotate Me
+   </div>
+   ```
+
+   
+
+   
 
 
 
@@ -151,7 +219,7 @@ duration 默认值为之 0.3 , fillMode 默认值为之 both 其他没有默认�
 
 这样会出现这样的问题：
 
-![160012](README.assets/160012.gif)
+<img src="README.assets/160012.gif" alt="160012" style="zoom:33%;" />
 
 为了解决这样的问题， 你应该将 元素的最状态 和 100% 动画关键帧处的状态保持一致：
 
@@ -201,31 +269,3 @@ animate/style.css
 
 添加你的关键帧动画， 注意命名需要和上面的保持一致：
 
-```css
-@keyframes v-animate-scaleup {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes v-animate-cleartoblur {
-  0% {
-    backdrop-filter: blur(0);
-  }
-  100% {
-    backdrop-filter: blur(4px);
-  }
-}
-```
-
-### 用例：
-
-修饰符的用法：
-
-```vue
-
-```
-
-> 
