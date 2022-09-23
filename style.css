@@ -1,0 +1,73 @@
+@keyframes v-animate-scaleup {
+  0% {
+    transform: scale(0) translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes v-animate-cleartoblur {
+  0% {
+    backdrop-filter: blur(0);
+  }
+  100% {
+    backdrop-filter: blur(4px);
+  }
+}
+
+@keyframes v-animate-fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes v-animate-moveup {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes v-animate-moveup-short {
+  0% {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  100% {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes v-animate-movefromleft {
+  0% {
+    /* opacity: 0; */
+    transform: translateX(100%);
+  }
+  100% {
+    /* opacity: 1; */
+    transform: translateX(0);
+  }
+}
+
+@keyframes v-animate-movefromleft-short {
+  0% {
+    /* opacity: 0; */
+    transform: translateX(20%);
+  }
+  100% {
+    /* opacity: 1; */
+    transform: translateX(0);
+  }
+}
