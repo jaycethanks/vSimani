@@ -54,6 +54,8 @@ export const vSimani = {
   },
 };
 
+export const vSimaniDirective = vAnimate;
+
 export const registerAnimation = (data: { [x: string]: string }) => {
   userCusAnimationList = data;
 };
