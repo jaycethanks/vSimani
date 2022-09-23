@@ -48,7 +48,7 @@ const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   generateAnimation();
 };
 
-export default {
+export const vSimani = {
   install: (app: App) => {
     app.directive('animate', vAnimate);
   },
