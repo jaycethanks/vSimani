@@ -12,7 +12,7 @@ interface DirectiveBindingValue {
   fillMode?: string;
 }
 
-let userCusAnimationList: DirectiveBindingValue = {};
+let userCusAnimationList = {};
 let defaultOptions: DirectiveBindingValue = {};
 
 const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
