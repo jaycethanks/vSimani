@@ -1,6 +1,6 @@
 {
   "name": "vsimani",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "a vue custom directive for simple animation",
   "main": "index.ts",
   "scripts": {
