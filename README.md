@@ -1,10 +1,14 @@
-[toc]
+
 
 ## 这是什么？
 
 这是一个 vue@3.x 的自定义指令。 它用于让元素进行 **简单的动画**。
 
-![131522](README.assets/131522.gif)
+你可以用它来做什么？
+
+![asdaas](README.assets/asdaas.webp)
+
+
 
 vSimani : v-simple-animate
 
@@ -59,7 +63,7 @@ Hello vSimani
 </div>
 ```
 
-### 绑定值
+### 绑定值 Options
 
 你可以向 `v-animate` 绑定一个 Options 对象， 它支持以下动画属性：
 
@@ -76,27 +80,46 @@ interface DirectiveBindingValue {
 
 `value: DirectiveBindingValue`
 
-duration 默认值为之 0.3 , fillMode 默认值为之 both, timingFunction 默认值为 linear。 其他没有默认值
+- `duration` 默认值 : `0.3` , 
+- `fillMode` 默认值: `both`, 
+- `timingFunction` 默认值 `linear`
+-  其他：没有默认值
 
-### 怎么让动画逆向运行？
 
-对于反向动画， 你无需重新定义， 仅通过指定 `direction: 'reverse',` 选项即可。
 
-```vue
-<div
-  v-animate.scaleup="{
-    duration: 0.3,
-    timingFunctionL: 'ease-in',
-    direction: 'reverse',
-  }"
->
-    v-animate
-</div>
+### 设定预设值
+
+你也可以通过以下方式去设定全局的预设值，这样，如果你不额外绑定 Options 选项， 那么将会应用你所定义的全局默认配置：
+
+```ts
+// main.ts, 示例：定义全局动画函数预设为一个贝塞尔曲线，定义默认的动画时长为1.2s
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+
+import { vSimani, setDefaultOptions, registerAnimation } from 'vsimani';
+
+setDefaultOptions({ duration:1.2, timingFunction: 'cubic-bezier(0, 0.78, 0.1, 0.95)' });
+
+registerAnimation({
+  rotate: 'v-animate-rotate',
+  movedown: 'v-animate-movedown',
+});
+import './user/custom.css';
+
+
+
+const app = createApp(App);
+app.use(vSimani);
+app.mount('#app');
+
 ```
+
+
 
 ### 定义你自己的修饰符
 
-在实际项目使用中，你可能需要定义自己的修饰符， 本插件暴露了一个注册方法，请依照以下步骤进行。
+在实际项目使用中，更多时候你可能需要定义自己的修饰符， 本插件暴露了一个注册方法，请依照以下步骤进行。
 
 1. 定义好你的 关键帧动画：
 
@@ -119,16 +142,16 @@ duration 默认值为之 0.3 , fillMode 默认值为之 both, timingFunction 默
    //main.ts
    import { createApp } from 'vue';
    import App from './App.vue';
-
+   
    // 引入 注册方法
    import { vSimani, registerAnimation } from 'vsimani';
    // 引入你的动画样式
    import './path/to/custom.css';
-
+   
    // 注册你的自定义动画
    // key(修饰符) ， value(自定义动画类名)
    registerAnimation({ rotate: 'v-animate-rotate' });
-
+   
    const app = createApp(App);
    app.use(vSimani);
    app.mount('#app');
@@ -147,6 +170,34 @@ duration 默认值为之 0.3 , fillMode 默认值为之 both, timingFunction 默
        Rotate Me
    </div>
    ```
+
+
+
+
+
+### 怎么让动画逆向运行？
+
+对于反向动画， 你无需重新定义， 仅通过指定 `direction: 'reverse',` 选项即可。
+
+```vue
+<div
+  v-animate.scaleup="{
+    duration: 0.3,
+    timingFunctionL: 'ease-in',
+    direction: 'reverse',
+  }"
+>
+    v-animate
+</div>
+```
+
+
+
+---
+
+
+
+
 
 ## 注意点: :warning:
 
