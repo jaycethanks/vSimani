@@ -12,7 +12,8 @@ interface DirectiveBindingValue {
   fillMode?: string;
 }
 
-let userCusAnimationList = {};
+let userCusAnimationList: DirectiveBindingValue = {};
+let defaultOptions: DirectiveBindingValue = {};
 
 const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   el: HTMLElement,
@@ -20,12 +21,14 @@ const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   // binding: DirectiveBinding<DirectiveBindingValue>
 ) => {
   const { modifiers, value } = binding;
-  const duration = value?.duration ?? 0.3;
-  const timingFunction = value?.timingFunction ?? 'linear';
-  const delay = value?.delay ?? 0;
-  const direction = value?.direction ?? '';
-  const iterationCount = value?.iterationCount ?? '';
-  const fillMode = value?.fillMode ?? 'both';
+  const duration = value?.duration ?? defaultOptions?.duration ?? 0.3;
+  const timingFunction =
+    value?.timingFunction ?? defaultOptions?.timingFunction ?? 'linear';
+  const delay = value?.delay ?? defaultOptions?.delay ?? 0;
+  const direction = value?.direction ?? defaultOptions?.direction ?? '';
+  const iterationCount =
+    value?.iterationCount ?? defaultOptions?.iterationCount ?? '';
+  const fillMode = value?.fillMode ?? defaultOptions?.fillMode ?? 'both';
 
   const animationOptions = ` ${duration}s ${timingFunction} ${delay}s ${iterationCount} ${direction} ${fillMode}`;
   const animationNameList = {
@@ -56,6 +59,10 @@ export const vSimani = {
 
 export const vSimaniDirective = vAnimate;
 
-export const registerAnimation = (data: { [x: string]: string }) => {
+export const registerAnimation = (data: DirectiveBindingValue) => {
   userCusAnimationList = data;
+};
+
+export const setDefaultOptions = (data: DirectiveBindingValue) => {
+  defaultOptions = data;
 };
