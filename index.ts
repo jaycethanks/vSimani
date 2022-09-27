@@ -1,4 +1,4 @@
-import type { Directive, DirectiveBinding } from 'vue';
+import type { Directive, DirectiveBinding, App } from 'vue';
 import './style.css';
 
 // 描述 value 传入的类型
@@ -59,7 +59,7 @@ export const vSimani = {
 
 export const vSimaniDirective = vAnimate;
 
-export const registerAnimation = (data: DirectiveBindingValue) => {
+export const registerAnimation = (data: { [x: string]: string }) => {
   userCusAnimationList = data;
 };
 
