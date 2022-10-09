@@ -11,7 +11,7 @@ interface DirectiveBindingValue {
   iterationCount?: string;
   fillMode?: string;
 }
-interface animationNameList {
+interface animationNameListT {
   [x: string]: string;
 }
 
@@ -34,7 +34,7 @@ const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   const fillMode = value?.fillMode ?? defaultOptions?.fillMode ?? 'both';
 
   const animationOptions = ` ${duration}s ${timingFunction} ${delay}s ${iterationCount} ${direction} ${fillMode}`;
-  const animationNameList = {
+  const animationNameList: animationNameListT = {
     scaleup: 'v-animate-scaleup',
     cleartoblur: 'v-animate-cleartoblur',
     fadein: 'v-animate-fadein',
@@ -47,7 +47,7 @@ const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   const generateAnimation = () => {
     Object.keys(modifiers).forEach((key) => {
       el.style.animation =
-        animationNameList[key as keyof animationNameList] + animationOptions;
+        animationNameList[key as keyof animationNameListT] + animationOptions;
     });
   };
 
