@@ -11,6 +11,9 @@ interface DirectiveBindingValue {
   iterationCount?: string;
   fillMode?: string;
 }
+interface animationNameList {
+  [x: string]: string;
+}
 
 let userCusAnimationList = {};
 let defaultOptions: DirectiveBindingValue = {};
@@ -43,8 +46,8 @@ const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   };
   const generateAnimation = () => {
     Object.keys(modifiers).forEach((key) => {
-      // TODO: fix the ts error !
-      el.style.animation = animationNameList[key] + animationOptions;
+      el.style.animation =
+        animationNameList[key as keyof animationNameList] + animationOptions;
     });
   };
 
