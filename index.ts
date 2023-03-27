@@ -4,6 +4,7 @@ import './style.css';
 // 描述 value 传入的类型
 
 interface DirectiveBindingValue {
+  enable?: boolean;
   duration?: number;
   timingFunction?: string;
   delay?: number;
@@ -24,13 +25,13 @@ const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   // binding: DirectiveBinding<DirectiveBindingValue>
 ) => {
   const { modifiers, value } = binding;
+  const enable = value?.enable ?? defaultOptions?.enable ?? true;
+  if (!enable) return; // 是否启用?
   const duration = value?.duration ?? defaultOptions?.duration ?? 0.3;
-  const timingFunction =
-    value?.timingFunction ?? defaultOptions?.timingFunction ?? 'linear';
+  const timingFunction = value?.timingFunction ?? defaultOptions?.timingFunction ?? 'linear';
   const delay = value?.delay ?? defaultOptions?.delay ?? 0;
   const direction = value?.direction ?? defaultOptions?.direction ?? '';
-  const iterationCount =
-    value?.iterationCount ?? defaultOptions?.iterationCount ?? '';
+  const iterationCount = value?.iterationCount ?? defaultOptions?.iterationCount ?? '';
   const fillMode = value?.fillMode ?? defaultOptions?.fillMode ?? 'both';
 
   const animationOptions = ` ${duration}s ${timingFunction} ${delay}s ${iterationCount} ${direction} ${fillMode}`;
@@ -46,8 +47,7 @@ const vAnimate: Directive<HTMLElement, DirectiveBindingValue> = (
   };
   const generateAnimation = () => {
     Object.keys(modifiers).forEach((key) => {
-      el.style.animation =
-        animationNameList[key as keyof animationNameListT] + animationOptions;
+      el.style.animation = animationNameList[key as keyof animationNameListT] + animationOptions;
     });
   };
 
