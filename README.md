@@ -16,6 +16,10 @@ vSimani : v-simple-animate
 
 1. 安装和引入
 
+   ```bash
+      npm i vsimani
+   ```
+
    ```ts
    //main.ts
    import { createApp } from 'vue';
